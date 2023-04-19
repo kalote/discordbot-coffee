@@ -12,7 +12,7 @@ const client = new Discord.Client({
   ]
 });
 
-const CHANNEL_ID = "1098257653244899381";
+const CHANNEL_ID = process.env.CHANNEL_ID;
 
 client.on('ready', async (c) => {
   console.log(`Logged in as ${client.user.tag}`);
