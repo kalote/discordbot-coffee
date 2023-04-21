@@ -19,9 +19,9 @@ const cronFn = (channel) => {
     memberArr.forEach((member, index) => {
       if (index % 2 === 0) {
         if (memberArr[index+1] !== undefined) {
-          pairs.push(`${member.user.username} with ${memberArr[index + 1].user.username}`);
+          pairs.push(`${member.user} with ${memberArr[index + 1].user}`);
         } else {
-          pairs.push(`${member.user.username} will have a coffee with me 🤖`);
+          pairs.push(`${member.user} will have a coffee with me 🤖`);
         }
       }
     });

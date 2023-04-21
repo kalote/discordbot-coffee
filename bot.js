@@ -21,10 +21,13 @@ client.on('ready', async (c) => {
   
   const channel = c.channels.cache.get(CHANNEL_ID);
 
+  // listening to new event on genesis validator contract
+  // and posting a message in the channel
   blockchainFn(channel);
   
-  // cron.schedule('0 7 * * *', () => {
-  cron.schedule('0 * * * *', cronFn(channel));
+  // every morning at 7am, a message will be posted in the
+  // channel pairing members together
+  cron.schedule('0 7 * * *', cronFn(channel));
 });
 
 
