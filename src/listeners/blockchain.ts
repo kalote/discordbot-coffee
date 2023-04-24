@@ -29,7 +29,6 @@ export default async (channel: Channel, client: Client): Promise<void> => {
       const embed = new EmbedBuilder()
         .setColor(0x41b983)
         .setTitle("A new Genesis Validator joined 🔥")
-        .setURL("https://deposit.mainnet.lukso.network/en/")
         .setAuthor({
           name: client.user.username,
           iconURL: client.user.displayAvatarURL(),
