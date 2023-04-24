@@ -14,7 +14,7 @@ async function blockchainFn(channel) {
   contract.on("DepositEvent(bytes,bytes,uint256,bytes,uint256)", (pubkey, withdrawal_credentials, amount, signature, index, event) => {
     console.log("New Deposit! (signature)");
     count += 1;
-    channel.send(`A new validator joined the LUKSO adventure at block \`${event.blockNumber}\` 🎉🎉🎉!\nWe now have ${count} validators (${count*32} LYXe)!`);
+    channel.send(`A new validator joined the LUKSO adventure at block \`${event.blockNumber}\` 🎉🎉🎉!\nWe now have ${count} validators (${count*32} LYXe) which represents ${(count*100/4096).toFixed(2)}% of our target!`);
     console.log(JSON.stringify(event, null, 4));
   });
   
