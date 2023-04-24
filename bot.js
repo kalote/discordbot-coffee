@@ -14,20 +14,22 @@ const client = new Discord.Client({
   ]
 });
 
-const CHANNEL_ID = process.env.CHANNEL_ID;
+const CHANNEL_ID_ALL_TEAMS = process.env.CHANNEL_ID_ALL_TEAMS;
+const CHANNEL_ID_MONITORING = process.env.CHANNEL_ID_MONITORING;
 
 client.on('ready', async (c) => {
   console.log(`Logged in as ${client.user.tag}`);
   
-  const channel = c.channels.cache.get(CHANNEL_ID);
+  const channelCoffee = c.channels.cache.get(CHANNEL_ID_ALL_TEAMS);
+  const channelMonitoring = c.channels.cache.get(CHANNEL_ID_MONITORING);
 
   // listening to new event on genesis validator contract
   // and posting a message in the channel
-  blockchainFn(channel);
+  blockchainFn(channelMonitoring);
   
-  // every morning at 7am, a message will be posted in the
+  // every Tuesday morning at 7am, a message will be posted in the
   // channel pairing members together
-  cron.schedule('0 7 * * *', cronFn(channel));
+  cron.schedule('0 7 * * TUE', cronFn(channelCoffee));
 });
 
 
