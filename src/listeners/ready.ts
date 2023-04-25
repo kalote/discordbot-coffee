@@ -34,6 +34,6 @@ export default (client: Client): void => {
     // every Tuesday morning at 7am, a message will be posted in the
     // channel pairing members together
     // cron.schedule("*/5 * * * *", cronCoffee(channelCoffee));
-    cron.schedule("0 7 * * TUE", cronCoffee(channelCoffee));
+    // cron.schedule("0 7 * * TUE", cronCoffee(channelCoffee));
   });
 };
