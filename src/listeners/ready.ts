@@ -29,7 +29,7 @@ export default (client: Client): void => {
 
     // listening to new event on genesis validator contract
     // and posting a message in the channel
-    blockchain(channelMonitoring, client);
+    // blockchain(channelMonitoring, client);
 
     // every Tuesday morning at 7am, a message will be posted in the
     // channel pairing members together
@@ -40,7 +40,12 @@ export default (client: Client): void => {
       let memberArr: GuildMember[] = [];
       if (channelCoffee.type === ChannelType.GuildText) {
         channelCoffee.members
-          .filter((member) => !member.user.bot)
+          .filter((member) => !member.user.bot) // remove bots
+          .filter((member) => member.user.tag !== "cryptochic#9612") // remove sarah
+          .filter(
+            (member) =>
+              !member.roles.cache.some((role) => role.name === "Team-Legal")
+          ) // remove Team-Legal
           .each((member) => memberArr.push(member));
 
         if (memberArr.length < 2) {
@@ -55,9 +60,11 @@ export default (client: Client): void => {
         memberArr.forEach((member, index) => {
           if (index % 2 === 0) {
             if (memberArr[index + 1] !== undefined) {
-              pairs.push(`${member.user} with ${memberArr[index + 1].user}`);
+              pairs.push(
+                `${member.user.tag} with ${memberArr[index + 1].user.tag}`
+              );
             } else {
-              pairs.push(`${member.user} will have a coffee with me 🤖`);
+              pairs.push(`${member.user.tag} will have a coffee with me 🤖`);
             }
           }
         });
