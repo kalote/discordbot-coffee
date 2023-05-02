@@ -34,7 +34,7 @@ export default (client: Client): void => {
     // every Tuesday morning at 7am, a message will be posted in the
     // channel pairing members together
     // cron.schedule("*/5 * * * *", cronCoffee(channelCoffee));
-    cron.schedule("*/2 * * * *", () => {
+    cron.schedule("0 7 * * TUE", () => {
       console.log("Cron executed!");
 
       let memberArr: GuildMember[] = [];
@@ -60,11 +60,9 @@ export default (client: Client): void => {
         memberArr.forEach((member, index) => {
           if (index % 2 === 0) {
             if (memberArr[index + 1] !== undefined) {
-              pairs.push(
-                `${member.user.tag} with ${memberArr[index + 1].user.tag}`
-              );
+              pairs.push(`${member.user} with ${memberArr[index + 1].user}`);
             } else {
-              pairs.push(`${member.user.tag} will have a coffee with me 🤖`);
+              pairs.push(`${member.user} will have a coffee with me 🤖`);
             }
           }
         });
