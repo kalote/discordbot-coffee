@@ -7,7 +7,9 @@ export default (channel: Channel): (() => void) => {
     let memberArr: GuildMember[] = [];
     if (channel.type === ChannelType.GuildText) {
       channel.members
-        .filter((member) => !member.user.bot)
+        .filter((member) => !member.user.bot) // remove bots
+        .filter((member) => member.user.tag !== "cryptochic#9612") // remove sarah
+        .filter((member) => member.user.tag !== "paolasoto#2297") // remove paola
         .each((member) => memberArr.push(member));
 
       if (memberArr.length < 2) {
