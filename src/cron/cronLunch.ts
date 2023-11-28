@@ -1,4 +1,4 @@
-import { Channel, ChannelType, GuildMember } from "discord.js";
+import { Channel, ChannelType } from "discord.js";
 
 export default (channel: Channel): (() => void) => {
   return () => {

@@ -1,10 +1,9 @@
-# Coffee discord bot
+# LUKSO discord bot
 
-A simple discord bot that will randomly pair users of a channel together so that they can have a virtual coffee or mate or hot chocolate or tea ☕️
+A simple discord bot that will:
 
-The bot will post a message every morning at 7am.
-
-Additionnally, the bot will also listen to deposit event on ETH and send a message for every new validator.
+- send a weekly message that will randomly pair users of a channel together so that they can have a virtual coffee or mate or hot chocolate or tea ☕️
+- send a weekly reminder in a specific channel to @everyone about what they want for lunch for next week
 
 ## Install
 
@@ -13,3 +12,9 @@ npm i
 cp .env.example .env // fill in all the required info
 npm start
 ```
+
+## To do on prod
+
+- put the @ here in cronLunch.ts
+- remove `.tag` in cronCoffee.ts
+- remove comments on ready.ts
