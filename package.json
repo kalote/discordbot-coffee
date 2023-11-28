@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/bot.ts"
+    "start": "ts-node src/bot.ts",
+    "deploy": "ts-node src/script/deploy.ts"
   },
   "keywords": [],
   "author": "",
