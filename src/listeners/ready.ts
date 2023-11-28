@@ -1,12 +1,11 @@
-import { ChannelType, Client, GuildMember } from "discord.js";
+import { Client } from "discord.js";
 import * as cron from "node-cron";
-import cronCoffee from "./cronCoffee";
-import blockchain from "./blockchain";
+import cronCoffee from "../cron/cronCoffee";
+import cronLunch from "../cron/cronLunch";
 import dotenv from "dotenv";
 dotenv.config();
 
-const CHANNEL_ID_ALL_TEAMS = process.env.CHANNEL_ID_ALL_TEAMS;
-const CHANNEL_ID_MONITORING = process.env.CHANNEL_ID_MONITORING;
+const { CHANNEL_ID_ALL_TEAMS, CHANNEL_ID_BERLIN_TEAM } = process.env;
 
 export default (client: Client): void => {
   client.on("ready", async (c) => {
@@ -18,65 +17,26 @@ export default (client: Client): void => {
     console.log(`Logged in as ${client.user.tag}`);
 
     const channelCoffee = c.channels.cache.get(<string>CHANNEL_ID_ALL_TEAMS);
-    const channelMonitoring = c.channels.cache.get(
-      <string>CHANNEL_ID_MONITORING
-    );
+    const channelLunch = c.channels.cache.get(<string>CHANNEL_ID_BERLIN_TEAM);
 
-    if (!channelMonitoring || !channelCoffee) {
-      console.log("Error: Channel Monitoring is undefined");
+    if (!channelCoffee) {
+      console.log("Error: Channel All Teams is undefined");
       return;
     }
 
-    // listening to new event on genesis validator contract
-    // and posting a message in the channel
-    // blockchain(channelMonitoring, client);
+    if (!channelLunch) {
+      console.log("Error: Channel Berlin-team is undefined");
+      return;
+    }
 
-    // every Tuesday morning at 7am, a message will be posted in the
-    // channel pairing members together
-    // cron.schedule("*/5 * * * *", cronCoffee(channelCoffee));
-    cron.schedule("0 7 * * TUE", () => {
-      console.log("Cron executed!");
+    // every Tuesday morning at 10am, a message will be posted in the all-teams
+    // channel pairing members together for a coffee
+    // cron.schedule("0 9 * * TUE", cronCoffee(channelCoffee));
+    cron.schedule("*/5 * * * *", cronCoffee(channelCoffee));
 
-      let memberArr: GuildMember[] = [];
-      if (channelCoffee.type === ChannelType.GuildText) {
-        channelCoffee.members
-          .filter((member) => !member.user.bot) // remove bots
-          .filter((member) => member.user.tag !== "cryptochic#9612") // remove sarah
-          .filter(
-            (member) =>
-              !member.roles.cache.some((role) => role.name === "Team-Legal")
-          ) // remove Team-Legal
-          .each((member) => memberArr.push(member));
-
-        if (memberArr.length < 2) {
-          channelCoffee.send("There aren't enough members to pair up.");
-          return;
-        }
-
-        // Shuffle the members and pair them up
-        memberArr.sort((a, b) => Math.random() - 0.5);
-        const pairs: string[] = [];
-
-        memberArr.forEach((member, index) => {
-          if (index % 2 === 0) {
-            if (memberArr[index + 1] !== undefined) {
-              pairs.push(`${member.user} with ${memberArr[index + 1].user}`);
-            } else {
-              pairs.push(`${member.user} will have a coffee with me 🤖`);
-            }
-          }
-        });
-
-        const intro =
-          "Let's have random virtual coffee (or mate) to know each other better!\n\n☕️ Today's pairs are:\n\n";
-        const outro = "\n\nYour favorite bot 🤖";
-        const res = intro + pairs.join("\n") + outro;
-
-        channelCoffee.send(res);
-        return;
-      } else {
-        console.log("Error: Channel is not of type text");
-      }
-    });
+    // every Thursday at 3pm, a message will be posted in the berlin-team
+    // channel reminding the team to set up their lunch preference for next week
+    // cron.schedule("0 14 * * THU", cronLunch(channelLunch));
+    cron.schedule("* * * * *", cronLunch(channelLunch));
   });
 };

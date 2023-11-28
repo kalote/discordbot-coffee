@@ -2,14 +2,17 @@ import { Channel, ChannelType, GuildMember } from "discord.js";
 
 export default (channel: Channel): (() => void) => {
   return () => {
-    console.log("Cron executed!");
+    console.log("Cron coffee executed!");
 
     let memberArr: GuildMember[] = [];
     if (channel.type === ChannelType.GuildText) {
       channel.members
         .filter((member) => !member.user.bot) // remove bots
         .filter((member) => member.user.tag !== "cryptochic#9612") // remove sarah
-        .filter((member) => member.user.tag !== "paolasoto#2297") // remove paola
+        .filter(
+          (member) =>
+            !member.roles.cache.some((role) => role.name === "Team-Legal")
+        ) // remove Team-Legal
         .each((member) => memberArr.push(member));
 
       if (memberArr.length < 2) {
@@ -24,9 +27,11 @@ export default (channel: Channel): (() => void) => {
       memberArr.forEach((member, index) => {
         if (index % 2 === 0) {
           if (memberArr[index + 1] !== undefined) {
-            pairs.push(`${member.user} with ${memberArr[index + 1].user}`);
+            pairs.push(
+              `${member.user.tag} with ${memberArr[index + 1].user.tag}`
+            );
           } else {
-            pairs.push(`${member.user} will have a coffee with me 🤖`);
+            pairs.push(`${member.user.tag} will have a coffee with me 🤖`);
           }
         }
       });
@@ -37,6 +42,7 @@ export default (channel: Channel): (() => void) => {
       const res = intro + pairs.join("\n") + outro;
 
       channel.send(res);
+      return;
     } else {
       console.log("Error: Channel is not of type text");
     }
