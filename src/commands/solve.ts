@@ -44,7 +44,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
     if (interaction.user.id === chan.ownerId || hasAllowedRole) {
       const availableTags = parentChan?.availableTags;
       // get the "solved" tag id
-      const [solvedTag] = availableTags.filter((tag) => tag.name === "solved");
+      const [solvedTag] = availableTags.filter((tag) => tag.name === "Solved");
       // apply tag
       await chan.setAppliedTags([solvedTag.id]);
       // lock thread
