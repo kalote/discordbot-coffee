@@ -31,12 +31,12 @@ export default (client: Client): void => {
 
     // every Tuesday morning at 10am, a message will be posted in the all-teams
     // channel pairing members together for a coffee
-    // cron.schedule("0 9 * * TUE", cronCoffee(channelCoffee));
-    cron.schedule("*/5 * * * *", cronCoffee(channelCoffee));
+    cron.schedule("0 9 * * TUE", cronCoffee(channelCoffee));
+    // cron.schedule("*/5 * * * *", cronCoffee(channelCoffee));
 
     // every Thursday at 3pm, a message will be posted in the berlin-team
     // channel reminding the team to set up their lunch preference for next week
-    // cron.schedule("0 14 * * THU", cronLunch(channelLunch));
-    cron.schedule("* * * * *", cronLunch(channelLunch));
+    cron.schedule("0 14 * * THU", cronLunch(channelLunch));
+    // cron.schedule("* * * * *", cronLunch(channelLunch));
   });
 };

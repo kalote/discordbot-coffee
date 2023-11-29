@@ -27,11 +27,9 @@ export default (channel: Channel): (() => void) => {
       memberArr.forEach((member, index) => {
         if (index % 2 === 0) {
           if (memberArr[index + 1] !== undefined) {
-            pairs.push(
-              `${member.user.tag} with ${memberArr[index + 1].user.tag}`
-            );
+            pairs.push(`${member.user} with ${memberArr[index + 1].user}`);
           } else {
-            pairs.push(`${member.user.tag} will have a coffee with me 🤖`);
+            pairs.push(`${member.user} will have a coffee with me 🤖`);
           }
         }
       });

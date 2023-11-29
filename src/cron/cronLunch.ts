@@ -7,7 +7,7 @@ export default (channel: Channel): (() => void) => {
     if (channel.type === ChannelType.GuildText) {
       const title = "🥗  **Office Lunch Reminder!**  🍔\n\n";
       const msg =
-        "@ here Please take the time now to make sure your lunch orders are in for next week!\n";
+        "@here Please take the time now to make sure your lunch orders are in for next week!\n";
       const link =
         "Employee Lunch Tracker: <https://docs.google.com/spreadsheets/d/1RngXZnQbGkF1Sj1-JVXvAUa1qxciL0Vy0OeBrsNnAAE/edit#gid=158436719>";
       const outro = "\n\nYour favorite bot 🤖";

@@ -4,7 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
 
-const { CLIENT_ID_TEST, SERVER_ID_TEST, BOT_TOKEN_TEST } = process.env;
+const { CLIENT_ID, SERVER_ID, BOT_TOKEN } = process.env;
 
 const commands = [];
 // Grab all the command files from the commands directory
@@ -25,7 +25,7 @@ for (const file of commandFiles) {
 }
 
 // Construct and prepare an instance of the REST module
-const rest = new REST().setToken(<string>BOT_TOKEN_TEST);
+const rest = new REST().setToken(<string>BOT_TOKEN);
 
 // and deploy your commands!
 (async () => {
@@ -36,10 +36,7 @@ const rest = new REST().setToken(<string>BOT_TOKEN_TEST);
 
     // The put method is used to fully refresh all commands in the guild with the current set
     const data = await rest.put(
-      Routes.applicationGuildCommands(
-        <string>CLIENT_ID_TEST,
-        <string>SERVER_ID_TEST
-      ),
+      Routes.applicationGuildCommands(<string>CLIENT_ID, <string>SERVER_ID),
       { body: commands }
     );
 
