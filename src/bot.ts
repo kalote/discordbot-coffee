@@ -18,9 +18,7 @@ const client = new Client({
 client.commands = new Collection();
 
 const foldersPath = path.join(__dirname, "commands");
-const commandFiles = readdirSync(foldersPath).filter((file) =>
-  file.endsWith(".ts")
-);
+const commandFiles = readdirSync(foldersPath);
 for (const file of commandFiles) {
   const filePath = path.join(foldersPath, file);
   const command = require(filePath);
@@ -37,4 +35,4 @@ for (const file of commandFiles) {
 ready(client);
 events(client);
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN_TEST);
