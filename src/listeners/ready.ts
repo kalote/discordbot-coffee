@@ -5,8 +5,8 @@ import cronLunch from "../cron/cronLunch";
 import dotenv from "dotenv";
 dotenv.config();
 
-const { CHANNEL_ID_ALL_TEAMS, CHANNEL_ID_BERLIN_TEAM } = process.env;
-// const { CHANNEL_ID_ALL_TEAMS_TEST, CHANNEL_ID_BERLIN_TEAM_TEST } = process.env;
+// const { CHANNEL_ID_ALL_TEAMS, CHANNEL_ID_BERLIN_TEAM } = process.env;
+const { CHANNEL_ID_ALL_TEAMS_TEST, CHANNEL_ID_BERLIN_TEAM_TEST } = process.env;
 
 export default (client: Client): void => {
   client.on("ready", async (c) => {
@@ -17,10 +17,10 @@ export default (client: Client): void => {
 
     console.log(`Logged in as ${client.user.tag}`);
 
-    const channelCoffee = c.channels.cache.get(<string>CHANNEL_ID_ALL_TEAMS);
-    const channelLunch = c.channels.cache.get(<string>CHANNEL_ID_BERLIN_TEAM);
-    // const channelCoffee = c.channels.cache.get(<string>CHANNEL_ID_ALL_TEAMS_TEST);
-    // const channelLunch = c.channels.cache.get(<string>CHANNEL_ID_BERLIN_TEAM_TEST);
+    // const channelCoffee = c.channels.cache.get(<string>CHANNEL_ID_ALL_TEAMS);
+    // const channelLunch = c.channels.cache.get(<string>CHANNEL_ID_BERLIN_TEAM);
+    const channelCoffee = c.channels.cache.get(<string>CHANNEL_ID_ALL_TEAMS_TEST);
+    const channelLunch = c.channels.cache.get(<string>CHANNEL_ID_BERLIN_TEAM_TEST);
 
     if (!channelCoffee) {
       console.log("Error: Channel All Teams is undefined");
