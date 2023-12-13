@@ -9,7 +9,7 @@ env:
   IMAGE_NAME: europe-docker.pkg.dev/lks-lz-artifacts/docker-discordbot/discordbot
 
 jobs:
-  faucet-client-go:
+  build-publish:
     runs-on: ubuntu-latest
 
     # id token
