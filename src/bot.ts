@@ -4,6 +4,7 @@ import { Client, Collection, GatewayIntentBits } from "discord.js";
 import ready from "./listeners/ready";
 import events from "./listeners/events";
 import { ClientWithCommands } from "additional";
+import http, { RequestListener } from 'http';
 
 const client = new Client({
   intents: [
@@ -36,3 +37,12 @@ ready(client);
 events(client);
 
 client.login(process.env.BOT_TOKEN_TEST);
+
+const requestListener: RequestListener = function (req, res) {
+  res.writeHead(200);
+  res.end("ok");
+};
+const server = http.createServer(requestListener);
+server.listen("8080", () => {
+    console.log(`Server is running on 8080`);
+});

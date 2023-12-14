@@ -24,7 +24,10 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
     interaction.channelId
   ) as ThreadChannel;
   // no parent === not a Post
-  if (!chan?.parentId) return;
+  if (!chan?.parentId) {
+    console.log(`❌ /solve called from a wrong channel by ${interaction.user.id}`);
+    return;
+  }
   // retrieve the parent channel
   const parentChan = interaction.client.channels.cache.get(
     chan.parentId
@@ -42,6 +45,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
     );
     // check if he's the OP or if he has special role
     if (interaction.user.id === chan.ownerId || hasAllowedRole) {
+      console.log(`✅ /solve called by ${interaction.user.id}`);
       const availableTags = parentChan?.availableTags;
       // get the "solved" tag id
       const [solvedTag] = availableTags.filter((tag) => tag.name === "Solved");
@@ -54,6 +58,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
         "This post is now locked and marked as resolved. Thank you for your contributions!"
       );
     } else {
+      console.log(`❌ /solve called from user without perm`);
       // PERMISSION ERROR
       await interaction.reply({
         content:
@@ -62,6 +67,7 @@ export const execute = async (interaction: ChatInputCommandInteraction) => {
       });
     }
   } else {
+    console.log(`❌ /solve called from a wrong channel by ${interaction.user.id}`);
     // CHANNEL ERROR
     await interaction.reply({
       content:
