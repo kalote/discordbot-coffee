@@ -36,7 +36,7 @@ for (const file of commandFiles) {
 ready(client);
 events(client);
 
-client.login(process.env.BOT_TOKEN_TEST);
+client.login(process.env.BOT_TOKEN);
 
 const requestListener: RequestListener = function (req, res) {
   res.writeHead(200);
